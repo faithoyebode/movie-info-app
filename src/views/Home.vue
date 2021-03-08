@@ -17,7 +17,7 @@
 
     <div class="movies-list">
       <div class="movie" v-for="movie in movies" :key="movie.imdbID">
-        <router-link :to="'/movie/' + movie.imdbID" clas="movie-link">
+        <router-link :to="'/movies/' + movie.imdbID" class="movie-link">
           <div class="product-image">
             <img :src="movie.Poster" alt="Movie Poster" />
             <div class="type">{{ movie.Type }}</div>
@@ -42,7 +42,7 @@ export default {
 
     const searchMovies = () => {
       if(search.value != ""){
-        fetch(`${process.env.VUE_APP_API_URL}` + `&s=${search.value}`)
+        fetch(`${process.env.VUE_APP_API_URL}?apikey=${process.env.VUE_APP_KEY}&s=${search.value}`)
           .then(res => res.json())
           .then(data => {
             movies.value = data.Search;
@@ -59,7 +59,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .home{
   .feature-card{
     position: relative;
@@ -178,7 +178,7 @@ export default {
             background-color: #4288b3;
             color: #fff;
             bottom: 16px;
-            left: 8px;
+            left: 0px;
             text-transform: capitalize;
           }
         }
