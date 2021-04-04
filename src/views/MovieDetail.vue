@@ -1,9 +1,9 @@
 <template>
     <div class="movie-detail">
         <h2>{{ movie.Title }}</h2>
-        <p>{{ movie.Year }}</p>
+        <p class="year">{{ movie.Year }}</p>
         <img :src="movie.Poster" alt="Movie Poster" class="featured-img" />
-        <p>{{ movie.Plot }}</p>
+        <p class="plot">{{ movie.Plot }}</p>
     </div>
 </template>
 
@@ -31,20 +31,29 @@ export default {
 </script>
 
 <style lang="scss">
-.movie-detail{
+.movie-detail{ 
     padding: 16px;
+    padding-top: 70px;
 
     h2{
         color: #ffffff;
         font-size: 28px;
         font-weight: 600;
         margin-bottom: 16px;
+        text-align: center;
+    }
+
+    .year{
+        text-align: center;
     }
 
     .featured-img{
         display: block;
-        max-width: 200px;
+        max-width: 300px;
         margin-bottom: 16px;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     p{

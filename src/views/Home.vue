@@ -1,11 +1,14 @@
 <template>
   <div class="home">
     <div class="feature-card">
-      <router-link to="/movies/tt0409591">
-        <img src="https://images-na.ssl-images-amazon.com/images/I/712bs-NcSVL._AC_SY679_.jpg" alt="Naruto Poster" class="featured-img" />
+      <router-link to="/movies/tt6468322">
+        <img src="https://m.media-amazon.com/images/M/MV5BZDcxOGI0MDYtNTc5NS00NDUzLWFkOTItNDIxZjI0OTllNTljXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg" alt="Money Heist Poster" class="featured-img" />
         <div class="detail">
-          <h3>Naruto</h3>
-          <p>Naruto uzmaki</p>
+          <h3>Money Heist</h3>
+          <p>
+            An unusual group of robbers attempt to carry out the most perfect robbery in Spanish history - 
+            stealing 2.4 billion euros from the Royal Mint of Spain.
+          </p>
         </div>
       </router-link>
     </div>
@@ -15,6 +18,7 @@
       <button type="submit">Search</button>
     </form>
 
+    <clip-loader :loading="loading" :color="color" :size="size"></clip-loader>
     <div class="movies-list">
       <div class="movie" v-for="movie in movies" :key="movie.imdbID">
         <router-link :to="'/movies/' + movie.imdbID" class="movie-link">
@@ -34,18 +38,27 @@
 
 <script>
 import { ref } from 'vue';
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 
 export default {
+  components: {
+    ClipLoader
+  },
   setup(){
     const search = ref("");
+    const loading = ref(false);
+    const color = ref("#E50914");
     const movies = ref([]);
-
+    const size = ref("100px");
     const searchMovies = () => {
       if(search.value != ""){
+        movies.value = [];
+        loading.value = true;
         fetch(`${process.env.VUE_APP_API_URL}?apikey=${process.env.VUE_APP_KEY}&s=${search.value}`)
           .then(res => res.json())
           .then(data => {
             movies.value = data.Search;
+            loading.value = false;
             search.value = '';
           });
       }
@@ -54,23 +67,29 @@ export default {
     return {
       search,
       movies,
-      searchMovies
+      searchMovies,
+      loading,
+      color,
+      size
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .home{
+  padding-top: 50px;
+  width: 100%;
   .feature-card{
     position: relative;
 
     .featured-img{
       display: block;
       width: 100%;
-      height: 300px;
+      height: 400px;
       object-fit: cover;
       position: relative;
       z-index: 0;
+      object-position: 50% bottom;
     }
 
     .detail{
@@ -108,7 +127,7 @@ export default {
       background: none;
       width: 100%;
       color: #fff;
-      background-color: #496583;
+      background-color: #131313;
       font-size: 20px;
       padding: 10px 16px;
       border-radius: 8px;
@@ -132,7 +151,7 @@ export default {
       background: none;
       width: 100%;
       max-width: 300px;
-      background-color: #42B883;
+      background-color: #E50914;
       padding: 16px;
       color: #fff;
       border-radius: 8px;
@@ -141,7 +160,7 @@ export default {
       transition: 0.7s;
 
       &:active{
-        background-color: #3b8070;
+        background-color: #131313;
       }
 
     }
@@ -175,7 +194,7 @@ export default {
           .type{
             position: absolute;
             padding: 8px 16px;
-            background-color: #4288b3;
+            background-color: #E50914;
             color: #fff;
             bottom: 16px;
             left: 0px;
@@ -184,7 +203,7 @@ export default {
         }
 
         .detail{
-          background-color: #496583;
+          background-color: #111111;
           padding: 16px 8px;
           flex: 1 1 100%;
           border-radius: 0px 0px 8px 8px;

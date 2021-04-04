@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="App">
     <header>
       <router-link to='/'>
-        <h1>Movie App</h1>
+        <h1>Movie Info App</h1>
       </router-link>
     </header>
     <main>
@@ -10,6 +10,12 @@
     </main>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App'
+}
+</script>
 
 <style lang="scss">
 *{
@@ -19,12 +25,20 @@
   font-family: 'Fira Sans', sans-serif;
 
   &::selection{
-    background: transparentize(#42B883, 0.5);
+    background: transparentize(#E50914, 0.5);
   }
 }
 
 body{
-  background-color: #35495E;
+  
+}
+
+.App{
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #1f1f1f;
+  min-height: 100vh;
 }
 
 a{
@@ -36,12 +50,17 @@ header{
   align-items: center;
   justify-content: center;
   padding: 10px 16px;
-  background-color: #2C3D4E;
+  background-color: #141414;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  max-width: 700px;
+  z-index: 10;
 
   h1{
     color: #FFFFFF;
     font-size: 28px;
+    
 
     span{
       color: #42b883;
